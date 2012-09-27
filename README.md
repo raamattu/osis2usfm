@@ -41,3 +41,16 @@ Usage:
 
 Outputs a set of files named inputfile_##_XXX.usfm where ## is the
 number of the book and XXX is the id of the book.
+
+It is also possible to give the names of the books as a separate text
+file. This file should have syntax:
+
+    GEN=Genesis
+    EXO=Exodus
+    ...
+    XXX=Whatever name you want to give to the book
+    ...
+
+where XXX is the ID of the book.  Usage:
+
+    python osis2usfm.py inputfile.osis booknames.txt
