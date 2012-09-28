@@ -151,14 +151,18 @@ ids = (
 # Use booknames if given
 booknames = {}
 if len(sys.argv) >= 3:
-    namefile = open(sys.argv[2])
+    #namefile = open(sys.argv[2])
+    namefile = codecs.open(sys.argv[2],
+                           mode='r',
+                           encoding='utf-8')
     while True:
         line = namefile.readline()
         if not line:
             break
         pass # do something    while 
         (id, name) = line.split("=")
-        booknames[id] = str.strip(name)
+        booknames[id] = unicode.strip(name)
+    namefile.close()
 
 id_ind = 0
 for testament in root[0][1:]:
@@ -170,9 +174,9 @@ for testament in root[0][1:]:
                         encoding='utf-8')
 
         f.write(u"\\id " + ids[id_ind] + "\n")
-        if ids[id_ind] in booknames:
-            f.write(u"\\h %s\n" % booknames[ids[id_ind]])
-            f.write(u"\\toc2 %s\n" % booknames[ids[id_ind]])
+        if ids[id_ind] in booknames and booknames[ids[id_ind]]:
+            f.write(u"\\h " + booknames[ids[id_ind]] + u"\n")
+            f.write(u"\\toc2 " + booknames[ids[id_ind]] + u"\n")
         else:
             f.write(u"\\h \n")
             f.write(u"\\toc2 \n")
